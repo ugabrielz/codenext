@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Next | Portfólio</title>
+  <meta name="description" content="Portfólio da Code Next - criação de sites e sistemas modernos, rápidos e focados em conversão para negócios locais." />
+  <meta name="keywords" content="criação de sites, landing page, desenvolvedor web, sites para empresas, criação de sites em São José do Rio Preto, sistemas, automações">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0a0a0f;
+      --bg-2:#101018;
+      --card:#151522;
+      --card-2:#1b1b2b;
+      --text:#f5f7ff;
+      --muted:#b6bdd1;
+      --line:rgba(255,255,255,0.08);
+      --primary:#5b8cff;
+      --primary-2:#7aa2ff;
+      --accent:#00e0ff;
+      --success:#75ffb8;
+      --shadow:0 20px 60px rgba(0,0,0,0.35);
+      --radius:22px;
+      --max:1180px;
+    }
+/* CHATBOT */
+.chatbot-toggle{
+  position:fixed;
+  bottom:95px;
+  right:20px;
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  cursor:pointer;
+  z-index:1001;
+  background:linear-gradient(135deg, var(--primary), var(--accent));
+  color:#08101b;
+  box-shadow:0 12px 30px rgba(0,0,0,0.35);
+  transition:0.25s ease;
+}
+
+.chatbot-toggle:hover{
+  transform:translateY(-2px) scale(1.03);
+}
+
+.chatbot-box{
+  position:fixed;
+  right:20px;
+  bottom:165px;
+  width:380px;
+  max-width:calc(100vw - 24px);
+  height:560px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  overflow:hidden;
+  z-index:1001;
+  display:none;
+  flex-direction:column;
+  backdrop-filter:blur(14px);
+}
+
+.chatbot-box.active{
+  display:flex;
+}
+
+.chatbot-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 18px 14px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.03);
+}
+
+.chatbot-header h3{
+  font-size:1rem;
+  margin:0 0 4px;
+}
+
+.chatbot-header p{
+  font-size:0.86rem;
+  color:var(--muted);
+  margin:0;
+}
+
+.chatbot-close{
+  width:34px;
+  height:34px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  font-size:1rem;
+}
+
+.chatbot-messages{
+  flex:1;
+  overflow-y:auto;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.chatbot-message{
+  max-width:85%;
+  padding:12px 14px;
+  border-radius:16px;
+  line-height:1.5;
+  font-size:0.94rem;
+  white-space:pre-wrap;
+}
+
+.chatbot-message.bot{
+  align-self:flex-start;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  color:var(--text);
+}
+
+.chatbot-message.user{
+  align-self:flex-end;
+  background:linear-gradient(135deg, var(--primary), var(--accent));
+  color:#08101b;
+  font-weight:600;
+}
+
+.chatbot-input-area{
+  display:flex;
+  gap:10px;
+  padding:14px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.02);
+}
+
+.chatbot-input-area input{
+  flex:1;
+  height:46px;
+  border:none;
+  outline:none;
+  border-radius:12px;
+  padding:0 14px;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  font-size:0.94rem;
+}
+
+.chatbot-input-area input::placeholder{
+  color:#aeb7cd;
+}
+
+.chatbot-input-area button{
+  border:none;
+  border-radius:12px;
+  padding:0 18px;
+  cursor:pointer;
+  font-weight:700;
+  background:linear-gradient(135deg, var(--primary), var(--accent));
+  color:#08101b;
+}
+
+.chatbot-footer{
+  padding:0 14px 14px;
+  text-align:center;
+}
+
+.chatbot-footer a{
+  color:var(--accent);
+  font-size:0.9rem;
+  font-weight:600;
+}
+
+@media (max-width: 768px){
+  .chatbot-toggle{
+    bottom:90px;
+    right:16px;
+  }
+
+  .chatbot-box{
+    right:12px;
+    left:12px;
+    bottom:160px;
+    width:auto;
+    height:68vh;
+  }
+}
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(91,140,255,0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(0,224,255,0.12), transparent 25%),
+        linear-gradient(180deg, #090910 0%, #0d0d14 100%);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    .container{
+      width:90%;
+      max-width:var(--max);
+      margin:0 auto;
+    }
+
+    .section{
+      padding:90px 0;
+    }
+
+    .section-title{
+      font-size:clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom:14px;
+      font-weight:700;
+    }
+
+    .section-subtitle{
+      color:var(--muted);
+      max-width:760px;
+      font-size:1.02rem;
+    }
+
+    
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(14px);
+      background:rgba(10,10,15,0.72);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      min-height:78px;
+      gap:20px;
+    }
+
+    .logo{
+      font-family:'Orbitron', sans-serif;
+      font-size:1.3rem;
+      font-weight:700;
+      letter-spacing:1px;
+      color:#fff;
+    }
+
+    .logo span{
+      color:var(--accent);
+    }
+
+    .menu{
+      display:flex;
+      gap:26px;
+      list-style:none;
+      align-items:center;
+    }
+
+    .menu a{
+      color:#e8edff;
+      font-size:0.95rem;
+      transition:0.25s;
+    }
+
+    .menu a:hover{
+      color:var(--accent);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 24px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:600;
+      transition:0.25s ease;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--primary), var(--accent));
+      color:#08101b;
+      box-shadow:0 10px 30px rgba(91,140,255,0.28);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(91,140,255,0.35);
+    }
+
+    .btn-secondary{
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(255,255,255,0.03);
+      color:#fff;
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.08);
+      transform:translateY(-2px);
+    }
+
+    .menu-toggle{
+      display:none;
+      font-size:1.8rem;
+      color:#fff;
+      cursor:pointer;
+    }
+
+    
+    .hero{
+      padding:95px 0 70px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      align-items:center;
+      gap:42px;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border:1px solid rgba(122,162,255,0.24);
+      border-radius:999px;
+      background:rgba(91,140,255,0.08);
+      color:#dbe6ff;
+      font-size:0.9rem;
+      margin-bottom:22px;
+    }
+
+    .hero h1{
+      font-size:clamp(2.3rem, 5vw, 4.8rem);
+      line-height:1.05;
+      margin-bottom:20px;
+      letter-spacing:-1px;
+    }
+
+    .hero h1 span{
+      background:linear-gradient(135deg, #ffffff, var(--accent));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+
+    .hero p{
+      font-size:1.08rem;
+      color:var(--muted);
+      max-width:640px;
+      margin-bottom:28px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-bottom:28px;
+    }
+
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .badge{
+      padding:10px 14px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:999px;
+      color:#d8def1;
+      font-size:0.92rem;
+    }
+
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border:1px solid rgba(255,255,255,0.09);
+      border-radius:28px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:-40% auto auto -20%;
+      width:260px;
+      height:260px;
+      background:radial-gradient(circle, rgba(0,224,255,0.25), transparent 70%);
+      pointer-events:none;
+    }
+
+    .mock-window{
+      background:#0b0f19;
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .mock-top{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 16px;
+      background:#111827;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+
+    .dot{
+      width:11px;
+      height:11px;
+      border-radius:50%;
+      background:#6f7c99;
+    }
+
+    .mock-body{
+      padding:20px;
+    }
+
+    .mock-box{
+      background:linear-gradient(135deg, rgba(91,140,255,0.18), rgba(0,224,255,0.12));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .mock-line{
+      height:12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.1);
+      margin-bottom:10px;
+    }
+
+    .mock-line.short{ width:45%; }
+    .mock-line.mid{ width:68%; }
+    .mock-line.long{ width:100%; }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:16px;
+      margin-top:22px;
+    }
+
+    .stat{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:18px;
+      text-align:center;
+    }
+
+    .stat h3{
+      font-size:1.6rem;
+      color:#fff;
+      margin-bottom:6px;
+    }
+
+    .stat p{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin:0;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      margin-top:38px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+
+    .card h3{
+      margin-bottom:14px;
+      font-size:1.2rem;
+    }
+
+    .card p{
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    .list{
+      list-style:none;
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .list li{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      color:#e9ecf8;
+    }
+
+    .list li span{
+      color:var(--success);
+      font-weight:700;
+      margin-top:1px;
+    }
+
+    
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:22px;
+      margin-top:38px;
+    }
+
+    .service-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:22px;
+      padding:26px;
+      transition:0.3s;
+    }
+
+    .service-card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(0,224,255,0.25);
+    }
+
+    .service-icon{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.4rem;
+      background:linear-gradient(135deg, rgba(91,140,255,0.2), rgba(0,224,255,0.16));
+      margin-bottom:18px;
+    }
+
+    .service-card h3{
+      margin-bottom:10px;
+      font-size:1.14rem;
+    }
+
+    .service-card p{
+      color:var(--muted);
+      font-size:0.97rem;
+    }
+
+    
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+      margin-top:38px;
+    }
+
+    .project-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px;
+      overflow:hidden;
+      transition:0.3s;
+    }
+
+    .project-card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(122,162,255,0.3);
+    }
+
+    .project-image{
+      height:220px;
+      background:
+        linear-gradient(135deg, rgba(91,140,255,0.45), rgba(0,224,255,0.18)),
+        linear-gradient(180deg, #131a2b, #101624);
+      position:relative;
+      overflow:hidden;
+      padding:18px;
+    }
+
+    .browser{
+      width:100%;
+      height:100%;
+      border-radius:16px;
+      background:#0d1220;
+      border:1px solid rgba(255,255,255,0.08);
+      overflow:hidden;
+    }
+
+    .browser-top{
+      height:34px;
+      background:#151d30;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      padding:0 12px;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+
+    .browser-body{
+      padding:16px;
+      height:calc(100% - 34px);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .thumb-banner{
+      height:56px;
+      border-radius:14px;
+      background:linear-gradient(135deg, rgba(0,224,255,0.22), rgba(91,140,255,0.18));
+    }
+
+    .thumb-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      flex:1;
+    }
+
+    .thumb-col{
+      border-radius:14px;
+      background:rgba(255,255,255,0.06);
+    }
+
+    .project-content{
+      padding:22px;
+    }
+
+    .project-label{
+      display:inline-block;
+      font-size:0.82rem;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(0,224,255,0.08);
+      border:1px solid rgba(0,224,255,0.16);
+      color:#dffcff;
+      margin-bottom:14px;
+    }
+
+    .project-content h3{
+      font-size:1.2rem;
+      margin-bottom:10px;
+    }
+
+    .project-content p{
+      color:var(--muted);
+      margin-bottom:18px;
+      font-size:0.96rem;
+    }
+
+    .project-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:20px;
+    }
+
+    .project-tags span{
+      font-size:0.86rem;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:999px;
+      padding:8px 11px;
+      color:#dbe2f3;
+    }
+
+    .project-links{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .project-links a{
+      font-size:0.93rem;
+      font-weight:600;
+      color:var(--accent);
+    }
+    
+    .demo-grid{
+      display:grid;
+      grid-template-columns:1.05fr 0.95fr;
+      gap:24px;
+      margin-top:38px;
+      align-items:stretch;
+    }
+
+    .demo-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .demo-card::before{
+      content:"";
+      position:absolute;
+      top:-80px;
+      right:-80px;
+      width:220px;
+      height:220px;
+      background:radial-gradient(circle, rgba(0,224,255,0.12), transparent 70%);
+      pointer-events:none;
+    }
+
+    .demo-card h3{
+      font-size:1.35rem;
+      margin-bottom:14px;
+    }
+
+    .demo-card p{
+      color:var(--muted);
+      margin-bottom:18px;
+    }
+
+    .demo-list{
+      list-style:none;
+      display:grid;
+      gap:12px;
+      margin:22px 0;
+    }
+
+    .demo-list li{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      color:#e9ecf8;
+    }
+
+    .demo-list li span{
+      color:var(--success);
+      font-weight:700;
+      margin-top:1px;
+    }
+
+    .demo-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:10px;
+    }
+
+    .demo-preview{
+      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+
+    .demo-window-top{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 16px;
+      background:#111827;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+
+    .demo-window-body{
+      padding:18px;
+    }
+
+    .demo-mini-form{
+      display:grid;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .demo-input{
+      height:44px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .demo-input.small{
+      width:48%;
+    }
+
+    .demo-row{
+      display:flex;
+      gap:12px;
+    }
+
+    .demo-button{
+      height:46px;
+      border-radius:14px;
+      background:linear-gradient(135deg, rgba(91,140,255,0.95), rgba(0,224,255,0.85));
+      margin:10px 0 18px;
+    }
+
+    .demo-table{
+      display:grid;
+      gap:10px;
+    }
+
+    .demo-table-line{
+      height:16px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.08);
+    }
+
+    .demo-table-line.short{ width:38%; }
+    .demo-table-line.mid{ width:64%; }
+    .demo-table-line.long{ width:100%; }
+
+    .demo-note{
+      margin-top:18px;
+      padding:16px;
+      border-radius:16px;
+      background:rgba(117,255,184,0.06);
+      border:1px solid rgba(117,255,184,0.14);
+      color:#dff7ea;
+      font-size:0.95rem;
+    }
+    .finance-preview{
+  display:grid;
+  gap:16px;
+}
+
+.finance-header{
+  display:grid;
+  gap:10px;
+}
+
+.finance-title-line{
+  height:14px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.10);
+}
+
+.finance-title-line.short{ width:42%; }
+.finance-title-line.long{ width:78%; }
+
+.finance-form{
+  display:grid;
+  gap:12px;
+  padding:16px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.finance-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.finance-input{
+  height:42px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.finance-input.long{
+  width:100%;
+}
+
+.finance-button{
+  height:44px;
+  border-radius:14px;
+  background:linear-gradient(135deg, rgba(91,140,255,0.95), rgba(0,224,255,0.85));
+}
+
+.finance-table{
+  display:grid;
+  gap:10px;
+}
+
+.finance-table-row{
+  height:22px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.finance-table-row.fixo{
+  background:rgba(124,58,237,0.22);
+}
+
+.finance-table-row.normal{
+  background:rgba(255,255,255,0.07);
+}
+
+.finance-table-row.quitado{
+  background:rgba(117,255,184,0.18);
+}
+
+.finance-note{
+  margin-top:4px;
+  padding:16px;
+  border-radius:16px;
+  background:rgba(91,140,255,0.07);
+  border:1px solid rgba(91,140,255,0.16);
+  color:#dbe6ff;
+  font-size:0.94rem;
+}
+    
+    .steps{
+      margin-top:38px;
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:18px;
+    }
+
+    .step{
+      background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:20px;
+      padding:24px;
+    }
+
+    .step-number{
+      width:42px;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:12px;
+      background:linear-gradient(135deg, var(--primary), var(--accent));
+      color:#08101b;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .step h3{
+      font-size:1.05rem;
+      margin-bottom:10px;
+    }
+
+    .step p{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* CTA */
+    .cta{
+      margin-top:38px;
+      padding:34px;
+      border-radius:28px;
+      background:
+        radial-gradient(circle at top right, rgba(0,224,255,0.16), transparent 28%),
+        linear-gradient(135deg, rgba(91,140,255,0.16), rgba(255,255,255,0.04));
+      border:1px solid rgba(255,255,255,0.08);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:24px;
+      flex-wrap:wrap;
+    }
+
+    .cta h3{
+      font-size:1.8rem;
+      margin-bottom:8px;
+    }
+
+    .cta p{
+      color:var(--muted);
+      max-width:680px;
+    }
+    /* TESTIMONIALS */
+
+    .testimonials-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+      margin-top:38px;
+    }
+
+    .testimonial-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:22px;
+      padding:26px;
+      transition:0.3s;
+    }
+
+    .testimonial-card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(0,224,255,0.25);
+    }
+
+    .testimonial-text{
+      color:#e9ecf8;
+      font-size:0.98rem;
+      margin-bottom:18px;
+      line-height:1.6;
+    }
+
+    .testimonial-author{
+      font-weight:600;
+      font-size:0.95rem;
+    }
+
+    .testimonial-role{
+      color:var(--muted);
+      font-size:0.85rem;
+    }
+        /* SYSTEMS */
+    .systems-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:22px;
+      margin-top:38px;
+    }
+
+    .system-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:22px;
+      padding:26px;
+      transition:0.3s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .system-card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(0,224,255,0.25);
+    }
+
+    .system-card::before{
+      content:"";
+      position:absolute;
+      top:-60px;
+      right:-60px;
+      width:160px;
+      height:160px;
+      background:radial-gradient(circle, rgba(0,224,255,0.10), transparent 70%);
+      pointer-events:none;
+    }
+
+    .system-icon{
+      width:54px;
+      height:54px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.45rem;
+      background:linear-gradient(135deg, rgba(91,140,255,0.2), rgba(0,224,255,0.16));
+      margin-bottom:18px;
+    }
+
+    .system-card h3{
+      margin-bottom:10px;
+      font-size:1.08rem;
+    }
+
+    .system-card p{
+      color:var(--muted);
+      font-size:0.95rem;
+      margin-bottom:16px;
+    }
+
+    .system-tag{
+      display:inline-block;
+      font-size:0.82rem;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(0,224,255,0.08);
+      border:1px solid rgba(0,224,255,0.16);
+      color:#dffcff;
+    }
+    /* CONTACT */
+    .contact-grid{
+      margin-top:38px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+    }
+
+    .contact-item{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:16px 18px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      margin-bottom:14px;
+    }
+
+    .contact-item .icon{
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg, rgba(91,140,255,0.2), rgba(0,224,255,0.18));
+      font-size:1.2rem;
+    }
+
+    .contact-item h4{
+      font-size:0.98rem;
+      margin-bottom:2px;
+    }
+
+    .contact-item p{
+      color:var(--muted);
+      font-size:0.94rem;
+    }
+
+    .contact-box{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px;
+      padding:28px;
+    }
+
+    .contact-box h3{
+      margin-bottom:10px;
+      font-size:1.25rem;
+    }
+
+    .contact-box p{
+      color:var(--muted);
+      margin-bottom:22px;
+    }
+    .whatsapp-float{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#25D366;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    z-index:999;
+    }
+    /* FOOTER */
+    footer{
+      border-top:1px solid var(--line);
+      padding:28px 0;
+      color:var(--muted);
+      text-align:center;
+      font-size:0.95rem;
+    }
+
+    /* ANIMATION */
+    .reveal{
+      opacity:0;
+      transform:translateY(28px);
+      transition:0.7s ease;
+    }
+
+    .reveal.active{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 1024px){
+    .hero-grid,
+    .about-grid,
+    .contact-grid,
+    .demo-grid{
+      grid-template-columns:1fr;
+    }
+
+    .services-grid,
+    .projects-grid,
+    .testimonials-grid,
+    .systems-grid{
+      grid-template-columns:repeat(2, 1fr);
+    }
+      .steps{
+        grid-template-columns:repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px){
+      .menu{
+        position:absolute;
+        top:78px;
+        right:5%;
+        width:90%;
+        background:rgba(10,10,15,0.98);
+        border:1px solid rgba(255,255,255,0.08);
+        border-radius:20px;
+        flex-direction:column;
+        padding:20px;
+        display:none;
+      }
+
+      .menu.active{
+        display:flex;
+      }
+
+      .menu-toggle{
+        display:block;
+      }
+
+      .nav .btn-nav{
+        display:none;
+      }
+
+      .hero{
+        padding-top:72px;
+      }
+
+      .services-grid,
+      .projects-grid,
+      .steps,
+      .stats,
+      .testimonials-grid,
+      .systems-grid{
+        grid-template-columns:1fr;
+      }
+      .section{
+        padding:72px 0;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .cta{
+        padding:24px;
+      }
+
+      .cta h3{
+        font-size:1.45rem;
+      }
+    }
+ .demo-window{
+  background:#0b0f19;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.demo-sistema-img{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  background:#0b0f19;
+}
+.demo-preview{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.chatbot-popup{
+  position:fixed;
+  bottom:168px;
+  right:20px;
+  background:#ffffff;
+  color:#111827;
+  padding:12px 16px;
+  border-radius:16px;
+  font-size:0.92rem;
+  font-weight:600;
+  box-shadow:0 12px 30px rgba(0,0,0,0.22);
+  z-index:1000;
+  max-width:220px;
+  opacity:0;
+  transform:translateY(10px);
+  pointer-events:none;
+  transition:0.35s ease;
+}
+
+.chatbot-popup.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.chatbot-popup::after{
+  content:"";
+  position:absolute;
+  bottom:-8px;
+  right:24px;
+  width:16px;
+  height:16px;
+  background:#ffffff;
+  transform:rotate(45deg);
+}
+
+@media (max-width: 768px){
+  .chatbot-popup{
+    right:16px;
+    bottom:160px;
+    max-width:200px;
+    font-size:0.88rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="#inicio" class="logo">Code <span>Next</span></a>
+
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+
+      <ul class="menu" id="menu">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#demo">Demonstração</a></li>
+        <li><a href="#sistemas">Sistemas</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+
+      <a href="https://wa.me/5517991652450?text=Olá,%20Gabriel!%20Vi%20seu%20portfólio%20e%20quero%20falar%20sobre%20um%20site." class="btn btn-primary btn-nav" target="_blank">
+        Falar no WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="reveal">
+
+          <h1>
+           Sites profissionais e sistemas sob medida <span>para empresas que querem crescer</span>
+          </h1>
+
+          <p>
+            Sou Gabriel, criador da Code Next. Desenvolvo sites e sistemas pensados para negócios que querem se apresentar melhor, passar mais credibilidade e transformar visitas em clientes no WhatsApp.
+          </p>
+
+          <div class="hero-actions">
+            <a href="https://wa.me/5517991652450?text=Olá,%20Gabriel!%20Quero%20um%20site%20para%20meu%20negócio." class="btn btn-primary" target="_blank">
+              Solicitar orçamento
+            </a>
+
+            <a href="#projetos" class="btn btn-secondary">
+              Ver projetos
+            </a>
+          </div>
+
+          <div class="hero-badges">
+            <div class="badge">✅ Layout profissional</div>
+            <div class="badge">✅ Foco em conversão</div>
+            <div class="badge">✅ Mobile otimizado</div>
+            <div class="badge">✅ Carregamento rápido</div>
+          </div>
+        </div>
+
+        <div class="hero-card reveal">
+          <div class="mock-window">
+            <div class="mock-top">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+
+            <div class="mock-body">
+              <div class="mock-box">
+                <div class="mock-line short"></div>
+                <div class="mock-line long"></div>
+                <div class="mock-line mid"></div>
+              </div>
+
+              <div class="mock-box">
+                <div class="mock-line mid"></div>
+                <div class="mock-line long"></div>
+                <div class="mock-line short"></div>
+              </div>
+
+              <div class="stats">
+                <div class="stat">
+                  <h3>100%</h3>
+                  <p>Responsivo</p>
+                </div>
+                <div class="stat">
+                  <h3>CTA</h3>
+                  <p>Foco em ação</p>
+                </div>
+                <div class="stat">
+                  <h3>UX</h3>
+                  <p>Navegação clara</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="container">
+        <div class="reveal">
+          <h2 class="section-title">Sobre a Code Next</h2>
+          <p class="section-subtitle">
+            A Code Next nasceu com a proposta de ajudar negócios locais a terem uma presença digital mais profissional, moderna e preparada para gerar contato e conversão.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="card reveal">
+            <h3>Quem sou eu</h3>
+            <p>
+              Me chamo Gabriel e trabalho com desenvolvimento de sites e páginas focadas em performance, visual profissional e conversão. Meu objetivo é criar páginas que não sejam apenas bonitas, mas que realmente ajudem empresas a vender mais e passar mais confiança.
+            </p>
+          </div>
+
+          <div class="card reveal">
+            <h3>O que você pode esperar</h3>
+            <ul class="list">
+              <li><span>✓</span> Site com visual moderno e profissional</li>
+              <li><span>✓</span> Estrutura pensada para celular</li>
+              <li><span>✓</span> Botão direto para WhatsApp</li>
+              <li><span>✓</span> Seções organizadas para facilitar conversão</li>
+              <li><span>✓</span> Projeto alinhado com o seu negócio</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="servicos">
+      <div class="container">
+        <div class="reveal">
+          <h2 class="section-title">Serviços</h2>
+          <p class="section-subtitle">
+            Soluções digitais para negócios que querem melhorar sua apresentação online, facilitar o contato com novos clientes e automatizar processos com sistemas sob medida.
+          </p>
+        </div>
+
+        <div class="services-grid">
+  <div class="service-card reveal">
+    <div class="service-icon">🌐</div>
+    <h3>Landing Pages</h3>
+    <p>
+      Páginas objetivas, bonitas e focadas em gerar ação, ideais para negócios locais, campanhas e divulgação de serviços.
+    </p>
+  </div>
+
+  <div class="service-card reveal">
+    <div class="service-icon">📱</div>
+    <h3>Sites Responsivos</h3>
+    <p>
+      Sites adaptados para computador, tablet e celular, com experiência visual agradável em qualquer tela.
+    </p>
+  </div>
+
+  <div class="service-card reveal">
+    <div class="service-icon">💬</div>
+    <h3>Conversão para WhatsApp</h3>
+    <p>
+      Estrutura pensada para facilitar o contato direto, aumentando as chances do visitante virar cliente.
+    </p>
+  </div>
+
+  <div class="service-card reveal">
+    <div class="service-icon">⚙️</div>
+    <h3>Sistemas Sob Medida</h3>
+    <p>
+      Desenvolvimento de sistemas personalizados para orçamento, atendimento, organização de processos e rotinas do seu negócio.
+    </p>
+  </div>
+</div>
+</section>
+
+   <section class="section" id="projetos">
+  <div class="container">
+    <div class="reveal">
+      <h2 class="section-title">Projetos demonstrativos</h2>
+      <p class="section-subtitle">
+        Estes projetos foram criados como demonstrações visuais de como um negócio pode se apresentar online com mais profissionalismo, clareza e conversão.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+
+      <article class="project-card reveal">
+        <div class="project-image">
+         <img src="{{ url_for('static', filename='personalizae.png') }}" alt="Site PersonalizAÊ">
+        </div>
+
+        <div class="project-content">
+          <span class="project-label">Loja de Personalização</span>
+          <h3>PersonalizAÊ</h3>
+          <p>
+            Página desenvolvida para apresentar produtos personalizados de forma mais profissional, facilitar pedidos via WhatsApp e aumentar a confiança do cliente no primeiro contato.
+          </p>
+
+          <div class="project-tags">
+            <span>Seção de produtos</span>
+            <span>CTA forte</span>
+            <span>Design limpo</span>
+          </div>
+
+          <div class="project-links">
+            <a href="https://personalizae.vercel.app/" target="_blank">Ver demonstração</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card reveal">
+        <div class="project-image">
+          <img src="{{ url_for('static', filename='evamoda.png') }}" alt="Site EVA Moda">
+        </div>
+
+        <div class="project-content">
+          <span class="project-label">Loja de Roupas</span>
+          <h3>EVA Moda</h3>
+          <p>
+            Página desenvolvida para uma loja de roupas moderna, com área de produtos, galeria visual e botão de contato no WhatsApp.
+          </p>
+
+          <div class="project-tags">
+            <span>Visual premium</span>
+            <span>WhatsApp</span>
+            <span>Mobile</span>
+          </div>
+
+          <div class="project-links">
+            <a href="https://evamoda.com.br" target="_blank">Ver demonstração</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card reveal">
+        <div class="project-image">
+          <img src="{{ url_for('static', filename='Urban Burger.png') }}" alt="Site Urban Burger">
+        </div>
+
+        <div class="project-content">
+          <span class="project-label">Hamburgueria</span>
+          <h3>Urban Burger</h3>
+          <p>
+            Exemplo de página para hamburgueria, com destaque para credibilidade, cardápio, qualidade e incentivo ao pedido pelo WhatsApp.
+          </p>
+
+          <div class="project-tags">
+            <span>Prova social</span>
+            <span>Cardápio</span>
+            <span>Design limpo</span>
+            <span>CTA forte</span>
+          </div>
+
+          <div class="project-links">
+            <a href="https://urbanburguer.vercel.app/" target="_blank">Ver demonstração</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="cta reveal">
+      <div>
+        <h3>Quer um site nesse estilo para o seu negócio?</h3>
+        <p>
+          Posso desenvolver uma página profissional, moderna e pensada para transformar visitas em contatos reais no WhatsApp.
+        </p>
+      </div>
+
+      <a href="https://wa.me/5517991652450?text=Olá,%20Gabriel!%20Quero%20um%20site%20para%20meu%20negócio." class="btn btn-primary" target="_blank">
+        Quero modernizar minha empresa
+      </a>
+    </div>
+  </div>
+</section>
+  <section class="section" id="demo">
+  <div class="container">
+    <div class="reveal">
+      <h2 class="section-title">Experimente uma demonstração real</h2>
+      <p class="section-subtitle">
+        Além de landing pages e sites, a Code Next também pode desenvolver sistemas personalizados para empresas. Abaixo está um exemplo de demonstração interativa de um sistema de orçamentos.
+      </p>
+    </div>
+
+    <div class="demo-grid">
+      <div class="demo-card reveal">
+        <h3>Sistema de Orçamentos Inteligente</h3>
+        <p>
+          Ideal para negócios que precisam montar orçamentos com mais rapidez, organização e profissionalismo. É uma solução que pode ser personalizada para lojas, prestadores de serviço, gráficas, marcenarias, serralherias e muitos outros segmentos.
+        </p>
+
+        <ul class="demo-list">
+          <li><span>✓</span> Cadastro rápido de itens</li>
+          <li><span>✓</span> Cálculo automático de subtotal, desconto e total</li>
+          <li><span>✓</span> Geração de mensagem pronta para WhatsApp</li>
+          <li><span>✓</span> Estrutura que pode evoluir para PDF, banco de dados e painel administrativo</li>
+        </ul>
+
+        <p>
+          Esse é o tipo de sistema que mostra, na prática, como a tecnologia pode economizar tempo e passar mais credibilidade no atendimento ao cliente.
+        </p>
+
+        <div class="demo-actions">
+          <a href="demo-orcamento.html" class="btn btn-primary" target="_blank">
+            Testar demonstração
+          </a>
+
+          <a href="https://wa.me/5517991652450?text=Olá,%20Gabriel!%20Vi%20a%20demonstração%20do%20sistema%20de%20orçamentos%20e%20quero%20algo%20parecido%20para%20minha%20empresa." class="btn btn-secondary" target="_blank">
+            Quero um sistema assim
+          </a>
+        </div>
+      </div>
+
+      <div class="demo-preview reveal">
+        <div class="demo-window">
+          <div class="demo-window-top">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+
+          <img src="{{ url_for('static', filename='sistema-orcamento.png') }}" alt="Sistema de Orçamentos" class="demo-sistema-img">
+               
+        </div>
+
+        <div class="finance-note">
+          Sistema real de orçamento com cadastro de itens, cálculo automático e estrutura pronta para atendimento mais profissional.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="financeiro-demo">
+  <div class="container">
+    <div class="reveal">
+      <h2 class="section-title">Outra demonstração real de sistema</h2>
+      <p class="section-subtitle">
+        Além de sistemas de orçamento, a Code Next também pode desenvolver soluções para organização financeira e controle interno da empresa.
+      </p>
+    </div>
+
+    <div class="demo-grid">
+      <div class="demo-card reveal">
+        <h3>Sistema de Controle Financeiro</h3>
+        <p>
+          Um sistema desenvolvido para ajudar empresas a organizarem despesas, acompanhar parcelas, visualizar gastos fixos e ter mais controle financeiro no dia a dia.
+        </p>
+
+        <ul class="demo-list">
+          <li><span>✓</span> Cadastro de contas e despesas</li>
+          <li><span>✓</span> Controle de parcelas restantes</li>
+          <li><span>✓</span> Gastos fixos destacados com cor diferente</li>
+          <li><span>✓</span> Edição rápida por duplo clique</li>
+          <li><span>✓</span> Dados salvos em banco de dados local</li>
+        </ul>
+
+        <p>
+          Esse tipo de sistema é ideal para pequenas empresas, comércios e profissionais que querem sair do papel ou da planilha bagunçada e ter mais controle no dia a dia.
+        </p>
+
+        <div class="demo-actions">
+          <a href="demo_financeiro.html" class="btn btn-primary" target="_blank">
+            Ver demonstração
+          </a>
+
+          <a href="https://wa.me/5517991652450?text=Olá,%20Gabriel!%20Vi%20a%20demonstração%20do%20sistema%20de%20controle%20financeiro%20e%20quero%20algo%20parecido%20para%20minha%20empresa." class="btn btn-secondary" target="_blank">
+            Quero um sistema assim
+          </a>
+        </div>
+      </div>
+
+      <div class="demo-preview reveal">
+        <div class="demo-window">
+          <div class="demo-window-top">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+
+          <img src="{{ url_for('static', filename='sistema-financeiro.png') }}" alt="Sistema de Controle Financeiro" class="demo-sistema-img">
+            
+        </div>
+
+        <div class="finance-note">
+          Sistema real com cadastro de contas, parcelas, status e gastos fixos destacados.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sistemas">
+      <div class="container">
+        <div class="reveal">
+          <h2 class="section-title">Sistemas que podemos desenvolver</h2>
+          <p class="section-subtitle">
+            Desenvolvo soluções personalizadas para empresas que querem economizar tempo, organizar processos e atender melhor seus clientes com tecnologia.
+          </p>
+        </div>
+
+        <div class="systems-grid">
+          <div class="system-card reveal">
+            <div class="system-icon">🧾</div>
+            <h3>Sistema de Orçamentos</h3>
+            <p>
+              Geração de orçamentos com cálculo automático, organização de itens, descontos e mensagem pronta para envio no WhatsApp.
+            </p>
+            <span class="system-tag">Comercial</span>
+          </div>
+
+          <div class="system-card reveal">
+            <div class="system-icon">📅</div>
+            <h3>Sistema de Agendamentos</h3>
+            <p>
+              Ideal para clínicas, barbearias, estéticas e serviços que precisam organizar horários, clientes e disponibilidade.
+            </p>
+            <span class="system-tag">Atendimento</span>
+          </div>
+
+          <div class="system-card reveal">
+            <div class="system-icon">📦</div>
+            <h3>Controle de Estoque</h3>
+            <p>
+              Cadastro de produtos, controle de quantidades, atualização de preços e organização mais clara do estoque da empresa.
+            </p>
+            <span class="system-tag">Gestão</span>
+          </div>
+
+          <div class="system-card reveal">
+            <div class="system-icon">🤖</div>
+            <h3>Automação de Atendimento</h3>
+            <p>
+              Soluções para agilizar respostas, organizar pedidos e melhorar o primeiro contato com clientes em canais digitais.
+            </p>
+            <span class="system-tag">Automação</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="depoimentos">
+<div class="container">
+
+<div class="reveal">
+<h2 class="section-title">O que dizem sobre meu trabalho</h2>
+<p class="section-subtitle">
+Empresas precisam transmitir confiança online. Veja como um site profissional pode transformar a forma como um negócio é percebido pelos clientes:
+</p>
+</div>
+
+<div class="testimonials-grid">
+
+<div class="testimonial-card reveal">
+<p class="testimonial-text">
+"O site ficou muito mais profissional do que esperávamos. Agora conseguimos apresentar melhor nossos produtos e receber contatos direto pelo WhatsApp."
+</p>
+<div class="testimonial-author">Lucas - PersonalizAÊ</div>
+<div class="testimonial-role">Comércio local - Personalização de peças</div>
+</div>
+
+<div class="testimonial-card reveal">
+<p class="testimonial-text">
+"Antes dependíamos só do Instagram. Com o site conseguimos passar muito mais credibilidade para novos clientes."
+</p>
+<div class="testimonial-author">EVA Moda</div>
+<div class="testimonial-role">Comércio local - Loja de roupas</div>
+</div>
+
+<div class="testimonial-card reveal">
+<p class="testimonial-text">
+"O visual ficou moderno e muito fácil de navegar no celular. Os clientes conseguem encontrar tudo rapidamente."
+</p>
+<div class="testimonial-author">Urban Burger</div>
+<div class="testimonial-role">Comércio local - Restaurante</div>
+</div>
+
+</div>
+
+</div>
+</section>
+    <section class="section">
+      <div class="container">
+        <div class="reveal">
+          <h2 class="section-title">Como funciona</h2>
+          <p class="section-subtitle">
+            Um processo simples, rápido e objetivo para tirar sua ideia do papel e transformar em uma presença digital profissional.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step reveal">
+            <div class="step-number">1</div>
+            <h3>Contato inicial</h3>
+            <p>Você explica seu negócio, seus objetivos e o que deseja mostrar no site.</p>
+          </div>
+
+          <div class="step reveal">
+            <div class="step-number">2</div>
+            <h3>Estratégia</h3>
+            <p>Organizamos a estrutura da página com foco em apresentação, credibilidade e conversão.</p>
+          </div>
+
+          <div class="step reveal">
+            <div class="step-number">3</div>
+            <h3>Desenvolvimento</h3>
+            <p>Seu projeto é criado com visual profissional, responsividade e botões de ação bem posicionados.</p>
+          </div>
+
+          <div class="step reveal">
+            <div class="step-number">4</div>
+            <h3>Entrega</h3>
+            <p>Você recebe sua página pronta para apresentar melhor sua empresa e captar mais clientes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contato">
+      <div class="container">
+        <div class="reveal">
+          <h2 class="section-title">Vamos conversar?</h2>
+          <p class="section-subtitle">
+            Se você quer melhorar a presença digital do seu negócio com um site mais profissional e pensado para conversão, entre em contato.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card reveal">
+            <div class="contact-item">
+              <div class="icon">📱</div>
+              <div>
+                <h4>WhatsApp</h4>
+                <p>(17) 99165-2450</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon">📷</div>
+              <div>
+                <h4>Instagram</h4>
+                <p>@codenexttech</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon">✉️</div>
+              <div>
+                <h4>Email</h4>
+                <p>codenextcontato@gmail.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-box reveal">
+            <h3>Seu negócio merece uma presença mais forte online</h3>
+            <p>
+              Um site profissional ajuda sua empresa a passar mais confiança, organizar melhor as informações e facilitar o contato com novos clientes.
+            </p>
+
+            <a href="https://wa.me/5517991652450?text=Olá,%20Gabriel!%20Vi%20seu%20portfólio%20e%20quero%20fazer%20um%20orçamento." class="btn btn-primary" target="_blank">
+              Falar no WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CHATBOT CODE NEXT -->
+<div class="chatbot-toggle" id="chatbot-toggle">💬</div>
+
+<div class="chatbot-box" id="chatbot-box">
+  <div class="chatbot-header">
+    <div>
+      <h3>Assistente Code Next</h3>
+      <p>Atendimento inteligente</p>
+    </div>
+    <button class="chatbot-close" id="chatbot-close">✕</button>
+  </div>
+
+  <div class="chatbot-messages" id="chatbot-messages">
+    <div class="chatbot-message bot">
+  Olá! Eu sou o assistente da Code Next. Posso te ajudar a encontrar a melhor solução para sua empresa. Para começar, qual é o seu nome e o nome da sua empresa?
+</div>
+  </div>
+
+  <div class="chatbot-input-area">
+    <input
+      type="text"
+      id="chatbot-input"
+      placeholder="Digite sua mensagem..."
+    >
+    <button id="chatbot-send">Enviar</button>
+  </div>
+
+  <div class="chatbot-footer">
+    <a href="https://wa.me/5517991652450?text=Olá,%20Gabriel!%20Vim%20pelo%20chat%20da%20Code%20Next." target="_blank">
+      Ir direto para o WhatsApp
+    </a>
+  </div>
+</div>
+<div class="chatbot-popup" id="chatbot-popup">
+  Olá, como posso te ajudar?
+</div>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Code Next — Gabriel Vieira. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+
+    menuToggle.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('active');
+      });
+    });
+
+    
+    const reveals = document.querySelectorAll('.reveal');
+
+    function revealOnScroll() {
+      const windowHeight = window.innerHeight;
+
+      reveals.forEach(item => {
+        const elementTop = item.getBoundingClientRect().top;
+        const visiblePoint = 100;
+
+        if (elementTop < windowHeight - visiblePoint) {
+          item.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+  </script>
+  <script>
+  const chatbotPopup = document.getElementById("chatbot-popup");
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      chatbotPopup.classList.add("show");
+    }, 1500);
+
+    setTimeout(() => {
+      chatbotPopup.classList.remove("show");
+    }, 6500);
+  });
+
+  chatbotToggle.addEventListener("click", () => {
+    chatbotPopup.classList.remove("show");
+  });
+</script>
+  <script>
+  const chatbotToggle = document.getElementById("chatbot-toggle");
+  const chatbotBox = document.getElementById("chatbot-box");
+  const chatbotClose = document.getElementById("chatbot-close");
+  const chatbotSend = document.getElementById("chatbot-send");
+  const chatbotInput = document.getElementById("chatbot-input");
+  const chatbotMessages = document.getElementById("chatbot-messages");
+
+  chatbotToggle.addEventListener("click", () => {
+    chatbotBox.classList.toggle("active");
+  });
+
+  chatbotClose.addEventListener("click", () => {
+    chatbotBox.classList.remove("active");
+  });
+
+  chatbotInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      sendChatMessage();
+    }
+  });
+
+  chatbotSend.addEventListener("click", sendChatMessage);
+
+  async function sendChatMessage() {
+    const text = chatbotInput.value.trim();
+    if (!text) return;
+
+    const userMessage = document.createElement("div");
+    userMessage.className = "chatbot-message user";
+    userMessage.textContent = text;
+    chatbotMessages.appendChild(userMessage);
+
+    chatbotInput.value = "";
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+    const typingMessage = document.createElement("div");
+    typingMessage.className = "chatbot-message bot";
+    typingMessage.textContent = "Digitando...";
+    chatbotMessages.appendChild(typingMessage);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+    try {
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await response.json();
+      typingMessage.remove();
+
+      const botMessage = document.createElement("div");
+      botMessage.className = "chatbot-message bot";
+      botMessage.textContent = data.reply || "Não consegui responder agora.";
+      chatbotMessages.appendChild(botMessage);
+
+      if (data.summary && data.whatsapp_link) {
+        const summaryBox = document.createElement("div");
+        summaryBox.className = "chatbot-message bot";
+        summaryBox.textContent = "Resumo captado:\n\n" + data.summary;
+        chatbotMessages.appendChild(summaryBox);
+
+        const whatsappBox = document.createElement("div");
+        whatsappBox.className = "chatbot-message bot";
+        whatsappBox.innerHTML = `
+          <a href="${data.whatsapp_link}" target="_blank" style="
+            color:#00e0ff;
+            font-weight:700;
+            text-decoration:none;
+            display:inline-block;
+            margin-top:8px;
+          ">
+            Continuar no WhatsApp com resumo pronto
+          </a>
+        `;
+        chatbotMessages.appendChild(whatsappBox);
+      }
+
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+    } catch (error) {
+      typingMessage.remove();
+
+      const errorMessage = document.createElement("div");
+      errorMessage.className = "chatbot-message bot";
+      errorMessage.textContent = "Erro ao conectar com o servidor do chatbot.";
+      chatbotMessages.appendChild(errorMessage);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+  }
+</script>
+<a href="https://wa.me/5517991652450?text=Olá,%20Gabriel!%20Quero%20fazer%20um%20site%20ou%20sistema."
+class="whatsapp-float"
+target="_blank">
+💬
+</a>
+</body>
+</html>
