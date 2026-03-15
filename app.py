@@ -8,13 +8,13 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = "code_next_chatbot"
 
-# pega chave do .env
+
 api_key = os.getenv("OPENROUTER_API_KEY")
 
 if not api_key:
     raise ValueError("Coloque sua API key no arquivo .env")
 
-# cliente OpenRouter
+
 client = OpenAI(
     api_key=api_key,
     base_url="https://openrouter.ai/api/v1"
@@ -157,6 +157,12 @@ def gerar_link_whatsapp(resumo):
 {resumo}"""
     return f"https://wa.me/5517991652450?text={quote(texto)}"
 
+@app.route("/demo-orcamento")
+def demo_orcamento():
+    return render_template("demo-orcamento.html")
 
+@app.route("/demo-financeiro")
+def demo_financeiro():
+    return render_template("demo_financeiro.html")
 if __name__ == "__main__":
     app.run(debug=True)
