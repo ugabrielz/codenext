@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Financeiro | Code Next</title>
+  <style>
+    :root{
+      --bg:#0a0a0f;
+      --bg-2:#11131a;
+      --card:#151823;
+      --card-2:#1b2030;
+      --line:rgba(255,255,255,0.08);
+      --text:#f5f7ff;
+      --muted:#b8bfd2;
+      --primary:#5b8cff;
+      --accent:#00e0ff;
+      --success:#22c55e;
+      --warning:#f59e0b;
+      --danger:#ef4444;
+      --fixed:#7c3aed;
+      --fixed-soft:rgba(124,58,237,0.18);
+      --fixed-soft-2:rgba(124,58,237,0.26);
+      --normal-soft:rgba(255,255,255,0.03);
+      --paid-soft:rgba(34,197,94,0.16);
+      --shadow:0 24px 60px rgba(0,0,0,0.35);
+      --radius:22px;
+      --max:1250px;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:Inter, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(91,140,255,0.16), transparent 25%),
+        radial-gradient(circle at top right, rgba(0,224,255,0.10), transparent 20%),
+        linear-gradient(180deg, #090910 0%, #0d0f16 100%);
+      min-height:100vh;
+    }
+
+    .container{
+      width:min(92%, var(--max));
+      margin:0 auto;
+    }
+
+    .hero{
+      padding:34px 0 18px;
+    }
+
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+      border:1px solid var(--line);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      padding:26px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(91,140,255,0.24);
+      background:rgba(91,140,255,0.08);
+      color:#dbe6ff;
+      font-size:.9rem;
+      margin-bottom:14px;
+    }
+
+    h1{
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.05;
+      margin-bottom:12px;
+      letter-spacing:-1px;
+    }
+
+    h1 span{
+      background:linear-gradient(135deg, #fff, var(--accent));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:760px;
+      font-size:1rem;
+    }
+
+    .hero-badges{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .badge{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid var(--line);
+      color:#dde3f5;
+      font-size:.92rem;
+    }
+
+    .mini-note{
+      color:var(--muted);
+      font-size:.92rem;
+      max-width:330px;
+      line-height:1.5;
+    }
+
+    .layout{
+      padding:8px 0 30px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 420px 1fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .panel-header{
+      padding:20px 22px;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,0.02);
+    }
+
+    .panel-header h2{
+      font-size:1.15rem;
+      margin-bottom:6px;
+    }
+
+    .panel-header p{
+      color:var(--muted);
+      font-size:.93rem;
+    }
+
+    .panel-body{
+      padding:20px 22px 22px;
+    }
+
+    .form-grid{
+      display:grid;
+      gap:14px;
+    }
+
+    .field{
+      display:grid;
+      gap:8px;
+    }
+
+    .field label{
+      font-size:.92rem;
+      color:#eaf0ff;
+      font-weight:600;
+    }
+
+    .field input,
+    .field select{
+      width:100%;
+      height:46px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.09);
+      background:rgba(255,255,255,0.045);
+      color:var(--text);
+      padding:0 14px;
+      outline:none;
+      transition:.2s ease;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .search input:focus{
+      border-color:rgba(0,224,255,0.5);
+      box-shadow:0 0 0 3px rgba(0,224,255,0.10);
+    }
+
+    .row-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:4px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:14px;
+      height:46px;
+      padding:0 16px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .btn:hover{ transform:translateY(-1px); }
+    .btn-primary{ background:linear-gradient(135deg, var(--primary), var(--accent)); color:#08101b; }
+    .btn-secondary{ background:rgba(255,255,255,0.05); color:#fff; border:1px solid var(--line); }
+    .btn-fixed{ background:linear-gradient(135deg, #6d28d9, #8b5cf6); color:#fff; }
+    .btn-danger{ background:linear-gradient(135deg, #dc2626, #ef4444); color:#fff; }
+    .btn-warning{ background:linear-gradient(135deg, #d97706, #f59e0b); color:#1d1205; }
+    .btn-success{ background:linear-gradient(135deg, #16a34a, #22c55e); color:#07140c; }
+    .btn-teal{ background:linear-gradient(135deg, #0f766e, #14b8a6); color:#031210; }
+
+    .toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+
+    .toolbar-right{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .search input{
+      width:240px;
+      height:44px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.09);
+      background:rgba(255,255,255,0.045);
+      color:var(--text);
+      padding:0 14px;
+      outline:none;
+    }
+
+    .filters{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      border:none;
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      background:rgba(255,255,255,0.05);
+      color:#edf2ff;
+      border:1px solid var(--line);
+      font-weight:600;
+    }
+
+    .pill.active{
+      background:rgba(91,140,255,0.16);
+      border-color:rgba(91,140,255,0.32);
+      color:#dbe6ff;
+    }
+
+    .summary{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .summary-card{
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid var(--line);
+    }
+
+    .summary-card small{
+      display:block;
+      color:var(--muted);
+      margin-bottom:6px;
+      font-size:.85rem;
+    }
+
+    .summary-card strong{
+      font-size:1.15rem;
+    }
+
+    .list-wrap{
+      display:grid;
+      gap:12px;
+    }
+
+    .empty{
+      padding:22px;
+      border-radius:18px;
+      text-align:center;
+      color:var(--muted);
+      background:rgba(255,255,255,0.03);
+      border:1px dashed rgba(255,255,255,0.12);
+    }
+
+    .expense-card{
+      border-radius:20px;
+      border:1px solid var(--line);
+      overflow:hidden;
+      background:var(--normal-soft);
+    }
+
+    .expense-card.normal{ background:rgba(255,255,255,0.03); }
+    .expense-card.normal.paid{ background:var(--paid-soft); }
+    .expense-card.fixed{ background:var(--fixed-soft); }
+    .expense-card.fixed.paid{ background:var(--fixed-soft-2); }
+
+    .expense-main{
+      padding:16px 18px;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+
+    .expense-left{
+      display:grid;
+      gap:8px;
+      min-width:260px;
+      flex:1;
+    }
+
+    .expense-topline{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .expense-title{
+      font-size:1.05rem;
+      font-weight:700;
+    }
+
+    .tag{
+      font-size:.78rem;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.06);
+      color:#e9efff;
+    }
+
+    .tag.fixed{ background:rgba(124,58,237,0.16); border-color:rgba(124,58,237,0.28); }
+    .tag.open{ background:rgba(245,158,11,0.14); border-color:rgba(245,158,11,0.28); }
+    .tag.paid{ background:rgba(34,197,94,0.14); border-color:rgba(34,197,94,0.28); }
+
+    .expense-meta{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .expense-right{
+      display:grid;
+      gap:8px;
+      justify-items:end;
+      min-width:170px;
+    }
+
+    .expense-value{
+      font-size:1.2rem;
+      font-weight:800;
+    }
+
+    .expense-actions{
+      padding:0 18px 18px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .mini-btn{
+      height:38px;
+      border:none;
+      border-radius:12px;
+      padding:0 12px;
+      font-weight:700;
+      cursor:pointer;
+      color:#fff;
+    }
+
+    .mini-btn.success{ background:#15803d; }
+    .mini-btn.teal{ background:#0f766e; }
+    .mini-btn.warning{ background:#b45309; }
+    .mini-btn.primary{ background:#2563eb; }
+    .mini-btn.danger{ background:#dc2626; }
+
+    .legend{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:14px;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .legend-item{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .legend-color{
+      width:16px;
+      height:16px;
+      border-radius:6px;
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .c-fixed{ background:var(--fixed-soft); }
+    .c-paid{ background:var(--paid-soft); }
+    .c-normal{ background:rgba(255,255,255,0.06); }
+
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+
+    .modal-backdrop.show{ display:flex; }
+
+    .modal{
+      width:min(100%, 520px);
+      background:linear-gradient(180deg, #141926, #101521);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .modal-header{
+      padding:18px 20px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+    .modal-header h3{ font-size:1.05rem; }
+    .close-btn{
+      width:36px;height:36px;border-radius:12px;border:none;cursor:pointer;
+      background:rgba(255,255,255,0.06);color:#fff;font-size:1.1rem;
+    }
+
+    .modal-body{ padding:20px; display:grid; gap:14px; }
+    .modal-actions{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      padding:0 0 30px;
+      font-size:.92rem;
+    }
+    .sistema-preview{
+  margin-bottom:18px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 20px 50px rgba(0,0,0,0.4);
+}
+
+.sistema-preview img{
+  width:100%;
+  display:block;
+}
+
+    @media (max-width: 1080px){
+      .grid{ grid-template-columns:1fr; }
+    }
+
+    @media (max-width: 760px){
+      .summary{ grid-template-columns:1fr 1fr; }
+      .row-2, .actions, .modal-actions{ grid-template-columns:1fr; }
+      .toolbar{ align-items:stretch; }
+      .toolbar-right, .filters{ width:100%; }
+      .search input{ width:100%; }
+      .expense-right{ justify-items:start; min-width:auto; }
+      .expense-main{ flex-direction:column; }
+    }
+
+    @media (max-width: 540px){
+      .summary{ grid-template-columns:1fr; }
+      .hero-card{ padding:20px; }
+      .panel-body, .panel-header{ padding-left:16px; padding-right:16px; }
+      .expense-main, .expense-actions{ padding-left:14px; padding-right:14px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div>
+          <div class="eyebrow">💻 Demonstração real de sistema</div>
+          <h1>Controle financeiro <span>simples, visual e funcional</span></h1>
+          <p>
+            Exemplo de sistema web para cadastrar contas, controlar parcelas, destacar gastos fixos e acompanhar pagamentos.
+            Os dados ficam salvos no navegador para fins de demonstração.
+          </p>
+          <div class="hero-badges">
+            <div class="badge">Cadastro rápido</div>
+            <div class="badge">Parcelas</div>
+            <div class="badge">Gastos fixos</div>
+            <div class="badge">Edição</div>
+          </div>
+        </div>
+        <div class="mini-note">
+          Esta versão foi feita para portfólio e demonstração comercial. Ela usa armazenamento local do navegador, sem precisar de servidor.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="layout">
+    <div class="container grid">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Nova conta</h2>
+          <p>Cadastre despesas normais ou ajuste gastos fixos depois de criá-los automaticamente.</p>
+        </div>
+        <div class="panel-body">
+          <form id="expenseForm" class="form-grid">
+            <input type="hidden" id="expenseId" />
+
+            <div class="field">
+              <label for="descricao">Descrição</label>
+              <input id="descricao" type="text" placeholder="Ex: Fornecedor de tinta" required />
+            </div>
+
+            <div class="row-2">
+              <div class="field">
+                <label for="valor">Valor (R$)</label>
+                <input id="valor" type="number" step="0.01" min="0" placeholder="0.00" required />
+              </div>
+              <div class="field">
+                <label for="vencimento">Vencimento</label>
+                <input id="vencimento" type="date" />
+              </div>
+            </div>
+
+            <div class="row-2">
+              <div class="field">
+                <label for="categoria">Categoria</label>
+                <input id="categoria" type="text" placeholder="Ex: Casa, Estoque, Transporte" />
+              </div>
+              <div class="field">
+                <label for="parcelas">Total de parcelas</label>
+                <input id="parcelas" type="number" min="1" value="1" required />
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn btn-primary" id="saveBtn">Adicionar conta</button>
+              <button type="button" class="btn btn-secondary" id="clearBtn">Limpar</button>
+              <button type="button" class="btn btn-fixed" id="fixedBtn">Criar gastos fixos</button>
+              <button type="button" class="btn btn-danger" id="removePaidBtn">Excluir quitadas</button>
+            </div>
+          </form>
+
+          <div class="legend">
+            <div class="legend-item"><span class="legend-color c-fixed"></span> Gasto fixo</div>
+            <div class="legend-item"><span class="legend-color c-paid"></span> Quitado</div>
+            <div class="legend-item"><span class="legend-color c-normal"></span> Conta normal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Contas cadastradas</h2>
+          <p>Pesquise, filtre, edite e controle pagamentos sem perder a visão geral.</p>
+        </div>
+        <div class="panel-body">
+          <div class="sistema-preview">
+            <img src="sistema-financeiro.png" alt="Sistema de controle financeiro">
+          </div>
+          <div class="toolbar">
+            <div class="search">
+              <input type="text" id="searchInput" placeholder="Buscar por descrição ou categoria" />
+            </div>
+            <div class="toolbar-right">
+              <div class="filters">
+                <button class="pill active" data-filter="todas">Todas</button>
+                <button class="pill" data-filter="Em aberto">Em aberto</button>
+                <button class="pill" data-filter="Quitado">Quitadas</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="summary-card">
+              <small>Total em aberto</small>
+              <strong id="openTotal">R$ 0,00</strong>
+            </div>
+            <div class="summary-card">
+              <small>Total quitado</small>
+              <strong id="paidTotal">R$ 0,00</strong>
+            </div>
+            <div class="summary-card">
+              <small>Registros</small>
+              <strong id="recordsTotal">0</strong>
+            </div>
+            <div class="summary-card">
+              <small>Gastos fixos</small>
+              <strong id="fixedTotal">0</strong>
+            </div>
+          </div>
+
+          <div id="expenseList" class="list-wrap"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-backdrop" id="editModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Editar conta</h3>
+        <button class="close-btn" id="closeModalBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="modalId" />
+
+        <div class="field">
+          <label for="modalRestantes">Parcelas restantes</label>
+          <input id="modalRestantes" type="number" min="0" />
+        </div>
+
+        <div class="field">
+          <label for="modalStatus">Status</label>
+          <select id="modalStatus">
+            <option value="Em aberto">Em aberto</option>
+            <option value="Quitado">Quitado</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="saveModalBtn">Salvar alterações</button>
+          <button class="btn btn-secondary" id="cancelModalBtn">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note container">
+    Demo desenvolvida para a Code Next — sistema web com armazenamento local no navegador.
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'code_next_demo_financeiro_v1';
+
+    const fixedDefaults = [
+      { descricao: 'Internet', categoria: 'Casa' },
+      { descricao: 'Aluguel', categoria: 'Casa' },
+      { descricao: 'Água', categoria: 'Casa' },
+      { descricao: 'Luz', categoria: 'Casa' },
+      { descricao: 'Faculdade Gabriel', categoria: 'Estudos' },
+      { descricao: 'Faculdade Thays', categoria: 'Estudos' },
+      { descricao: 'Moto', categoria: 'Transporte' },
+      { descricao: 'Dentista', categoria: 'Saúde' },
+      { descricao: 'Empréstimo Bradesco', categoria: 'Financeiro' },
+      { descricao: 'Serasa Thays', categoria: 'Financeiro' }
+    ];
+
+    const form = document.getElementById('expenseForm');
+    const expenseId = document.getElementById('expenseId');
+    const descricao = document.getElementById('descricao');
+    const valor = document.getElementById('valor');
+    const vencimento = document.getElementById('vencimento');
+    const categoria = document.getElementById('categoria');
+    const parcelas = document.getElementById('parcelas');
+    const saveBtn = document.getElementById('saveBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const fixedBtn = document.getElementById('fixedBtn');
+    const removePaidBtn = document.getElementById('removePaidBtn');
+    const searchInput = document.getElementById('searchInput');
+    const expenseList = document.getElementById('expenseList');
+    const pills = document.querySelectorAll('.pill');
+    const openTotal = document.getElementById('openTotal');
+    const paidTotal = document.getElementById('paidTotal');
+    const recordsTotal = document.getElementById('recordsTotal');
+    const fixedTotal = document.getElementById('fixedTotal');
+
+    const editModalBackdrop = document.getElementById('editModalBackdrop');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelModalBtn = document.getElementById('cancelModalBtn');
+    const saveModalBtn = document.getElementById('saveModalBtn');
+    const modalId = document.getElementById('modalId');
+    const modalRestantes = document.getElementById('modalRestantes');
+    const modalStatus = document.getElementById('modalStatus');
+
+    let currentFilter = 'todas';
+    let expenses = loadExpenses();
+
+    function loadExpenses() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return [];
+      try {
+        const parsed = JSON.parse(saved);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveExpenses() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
+    }
+
+    function formatCurrency(value) {
+      return Number(value || 0).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
+    }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return 'Sem vencimento';
+      const [year, month, day] = dateValue.split('-');
+      if (!year || !month || !day) return dateValue;
+      return `${day}/${month}/${year}`;
+    }
+
+    function generateId() {
+      return Date.now() + Math.floor(Math.random() * 1000);
+    }
+
+    function clearForm() {
+      expenseId.value = '';
+      descricao.value = '';
+      valor.value = '';
+      vencimento.value = '';
+      categoria.value = '';
+      parcelas.value = 1;
+      saveBtn.textContent = 'Adicionar conta';
+    }
+
+    function setFormForEdit(item) {
+      expenseId.value = item.id;
+      descricao.value = item.descricao;
+      valor.value = item.valor;
+      vencimento.value = item.vencimento || '';
+      categoria.value = item.categoria || '';
+      parcelas.value = item.totalParcelas;
+      saveBtn.textContent = 'Salvar conta';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function getFilteredExpenses() {
+      const term = searchInput.value.trim().toLowerCase();
+      return expenses.filter(item => {
+        const matchesFilter = currentFilter === 'todas' || item.status === currentFilter;
+        const matchesSearch = !term ||
+          item.descricao.toLowerCase().includes(term) ||
+          (item.categoria || '').toLowerCase().includes(term);
+        return matchesFilter && matchesSearch;
+      }).sort((a, b) => {
+        if (a.status !== b.status) return a.status === 'Em aberto' ? -1 : 1;
+        return b.id - a.id;
+      });
+    }
+
+    function updateSummary(filtered) {
+      const open = filtered.filter(item => item.status === 'Em aberto').reduce((sum, item) => sum + Number(item.valor), 0);
+      const paid = filtered.filter(item => item.status === 'Quitado').reduce((sum, item) => sum + Number(item.valor), 0);
+      const fixed = filtered.filter(item => item.tipo === 'fixo').length;
+
+      openTotal.textContent = formatCurrency(open);
+      paidTotal.textContent = formatCurrency(paid);
+      recordsTotal.textContent = filtered.length;
+      fixedTotal.textContent = fixed;
+    }
+
+    function renderExpenses() {
+      const filtered = getFilteredExpenses();
+      updateSummary(filtered);
+
+      if (!filtered.length) {
+        expenseList.innerHTML = '<div class="empty">Nenhuma conta encontrada com esse filtro.</div>';
+        return;
+      }
+
+      expenseList.innerHTML = filtered.map(item => {
+        const isPaid = item.status === 'Quitado';
+        const cardClass = `${item.tipo === 'fixo' ? 'fixed' : 'normal'} ${isPaid ? 'paid' : ''}`;
+
+        return `
+          <article class="expense-card ${cardClass}">
+            <div class="expense-main">
+              <div class="expense-left">
+                <div class="expense-topline">
+                  <div class="expense-title">${escapeHtml(item.descricao)}</div>
+                  ${item.tipo === 'fixo' ? '<span class="tag fixed">Gasto fixo</span>' : ''}
+                  <span class="tag ${isPaid ? 'paid' : 'open'}">${item.status}</span>
+                </div>
+                <div class="expense-meta">
+                  <span><strong>Categoria:</strong> ${escapeHtml(item.categoria || 'Sem categoria')}</span>
+                  <span><strong>Vencimento:</strong> ${formatDate(item.vencimento)}</span>
+                  <span><strong>Parcelas:</strong> ${item.totalParcelas}</span>
+                  <span><strong>Faltam:</strong> ${item.parcelasRestantes}</span>
+                </div>
+              </div>
+              <div class="expense-right">
+                <div class="expense-value">${formatCurrency(item.valor)}</div>
+                <div style="color:var(--muted); font-size:.9rem;">ID ${item.id}</div>
+              </div>
+            </div>
+            <div class="expense-actions">
+              <button class="mini-btn success" data-action="baixar" data-id="${item.id}">Baixar 1 parcela</button>
+              <button class="mini-btn teal" data-action="quitar" data-id="${item.id}">Marcar quitado</button>
+              <button class="mini-btn warning" data-action="reabrir" data-id="${item.id}">Reabrir</button>
+              <button class="mini-btn primary" data-action="editar" data-id="${item.id}">Editar</button>
+              <button class="mini-btn danger" data-action="excluir" data-id="${item.id}">Excluir</button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function addOrUpdateExpense(event) {
+      event.preventDefault();
+
+      const descricaoValue = descricao.value.trim();
+      const valorValue = Number(valor.value);
+      const vencimentoValue = vencimento.value;
+      const categoriaValue = categoria.value.trim();
+      const parcelasValue = Number(parcelas.value || 1);
+      const editingId = Number(expenseId.value);
+
+      if (!descricaoValue) {
+        alert('Digite uma descrição.');
+        return;
+      }
+
+      if (Number.isNaN(valorValue) || valorValue < 0) {
+        alert('Digite um valor válido.');
+        return;
+      }
+
+      if (!Number.isInteger(parcelasValue) || parcelasValue < 1) {
+        alert('O total de parcelas deve ser no mínimo 1.');
+        return;
+      }
+
+      if (editingId) {
+        expenses = expenses.map(item => {
+          if (item.id !== editingId) return item;
+          const novasRestantes = Math.min(item.parcelasRestantes, parcelasValue);
+          return {
+            ...item,
+            descricao: descricaoValue,
+            valor: valorValue,
+            vencimento: vencimentoValue,
+            categoria: categoriaValue,
+            totalParcelas: parcelasValue,
+            parcelasRestantes: novasRestantes,
+            status: novasRestantes === 0 ? 'Quitado' : item.status
+          };
+        });
+      } else {
+        expenses.unshift({
+          id: generateId(),
+          descricao: descricaoValue,
+          valor: valorValue,
+          vencimento: vencimentoValue,
+          categoria: categoriaValue,
+          totalParcelas: parcelasValue,
+          parcelasRestantes: parcelasValue,
+          status: 'Em aberto',
+          tipo: 'normal'
+        });
+      }
+
+      saveExpenses();
+      clearForm();
+      renderExpenses();
+    }
+
+    function createFixedExpenses() {
+      let added = 0;
+      fixedDefaults.forEach(item => {
+        const exists = expenses.some(exp => exp.tipo === 'fixo' && exp.descricao.toLowerCase() === item.descricao.toLowerCase());
+        if (!exists) {
+          expenses.unshift({
+            id: generateId(),
+            descricao: item.descricao,
+            valor: 0,
+            vencimento: '',
+            categoria: item.categoria,
+            totalParcelas: 1,
+            parcelasRestantes: 1,
+            status: 'Em aberto',
+            tipo: 'fixo'
+          });
+          added += 1;
+        }
+      });
+
+      saveExpenses();
+      renderExpenses();
+      alert(added === 0 ? 'Os gastos fixos já foram criados.' : `${added} gastos fixos adicionados com sucesso.`);
+    }
+
+    function removePaidExpenses() {
+      const hasPaid = expenses.some(item => item.status === 'Quitado');
+      if (!hasPaid) {
+        alert('Não há contas quitadas para excluir.');
+        return;
+      }
+
+      if (!confirm('Deseja excluir todas as contas quitadas?')) return;
+      expenses = expenses.filter(item => item.status !== 'Quitado');
+      saveExpenses();
+      renderExpenses();
+    }
+
+    function handleCardActions(event) {
+      const button = event.target.closest('[data-action]');
+      if (!button) return;
+      const action = button.dataset.action;
+      const id = Number(button.dataset.id);
+      const item = expenses.find(exp => exp.id === id);
+      if (!item) return;
+
+      if (action === 'baixar') {
+        if (item.status === 'Quitado') {
+          alert('Essa conta já está quitada.');
+          return;
+        }
+        item.parcelasRestantes = Math.max(0, item.parcelasRestantes - 1);
+        item.status = item.parcelasRestantes === 0 ? 'Quitado' : 'Em aberto';
+      }
+
+      if (action === 'quitar') {
+        item.parcelasRestantes = 0;
+        item.status = 'Quitado';
+      }
+
+      if (action === 'reabrir') {
+        item.parcelasRestantes = item.totalParcelas;
+        item.status = 'Em aberto';
+      }
+
+      if (action === 'editar') {
+        setFormForEdit(item);
+        openModal(item);
+        return;
+      }
+
+      if (action === 'excluir') {
+        if (!confirm(`Deseja excluir a conta "${item.descricao}"?`)) return;
+        expenses = expenses.filter(exp => exp.id !== id);
+      }
+
+      saveExpenses();
+      renderExpenses();
+    }
+
+    function openModal(item) {
+      modalId.value = item.id;
+      modalRestantes.value = item.parcelasRestantes;
+      modalStatus.value = item.status;
+      editModalBackdrop.classList.add('show');
+    }
+
+    function closeModal() {
+      editModalBackdrop.classList.remove('show');
+      modalId.value = '';
+      modalRestantes.value = '';
+      modalStatus.value = 'Em aberto';
+    }
+
+    function saveModalChanges() {
+      const id = Number(modalId.value);
+      const item = expenses.find(exp => exp.id === id);
+      if (!item) return;
+
+      const restantes = Number(modalRestantes.value);
+      const status = modalStatus.value;
+
+      if (!Number.isInteger(restantes) || restantes < 0 || restantes > item.totalParcelas) {
+        alert('As parcelas restantes devem estar entre 0 e o total de parcelas.');
+        return;
+      }
+
+      item.parcelasRestantes = restantes;
+      item.status = restantes === 0 ? 'Quitado' : status;
+
+      saveExpenses();
+      renderExpenses();
+      closeModal();
+    }
+
+    form.addEventListener('submit', addOrUpdateExpense);
+    clearBtn.addEventListener('click', clearForm);
+    fixedBtn.addEventListener('click', createFixedExpenses);
+    removePaidBtn.addEventListener('click', removePaidExpenses);
+    searchInput.addEventListener('input', renderExpenses);
+    expenseList.addEventListener('click', handleCardActions);
+
+    pills.forEach(button => {
+      button.addEventListener('click', () => {
+        pills.forEach(pill => pill.classList.remove('active'));
+        button.classList.add('active');
+        currentFilter = button.dataset.filter;
+        renderExpenses();
+      });
+    });
+
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelModalBtn.addEventListener('click', closeModal);
+    saveModalBtn.addEventListener('click', saveModalChanges);
+    editModalBackdrop.addEventListener('click', event => {
+      if (event.target === editModalBackdrop) closeModal();
+    });
+
+    renderExpenses();
+  </script>
+</body>
+</html>
